@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="stylesheet.css" />
+  <title>Técnicas de Mitigación</title>
+
+</head>
+
+<body>
+	<div class="video">
+	<video controls autoplay width="640" height="480">
+		<source src="Módulo 3_Mitigation Techniques.mp4" type="video/mp4" />
+	</video>
+</div>
+    <div class="preguntasportema"> 
+<fieldset>
+	<legend>Cuestionario Técnicas de Mitigación</legend>
+	<div id="test">
+		<div class="cuestion">1. “Aprendizaje y mejora continua a partir del incidente”. El enunciado anterior corresponde a: </div>
+		<div class="respuestas">
+			<label>
+				<input type="radio" name="0" value="a">&nbsp;a : S&iacute;ntoma de ataque.&nbsp;</label>
+			<label>
+				<input type="radio" name="0" value="b">&nbsp;b : Paso a seguir en una infecci&oacute;n de malware.&nbsp;</label>
+			<label>
+				<input type="radio" name="0" value="c">&nbsp;c : Medida de seguridad.&nbsp;</label>
+		</div>
+		<div class="cuestion">2. “Respaldos de informaci&oacute;n”. El enunciado anterior corresponde a:</div>
+		<div class="respuestas">
+			<label>
+				<input type="radio" name="0" value="a">&nbsp;a : S&iacute;ntoma de ataque.&nbsp;</label>
+			<label>
+				<input type="radio" name="0" value="b">&nbsp;b : Paso a seguir en una infecci&oacute;n de malware.&nbsp;</label>
+			<label>
+				<input type="radio" name="0" value="c">&nbsp;c : Medida de seguridad.&nbsp;</label>
+		</div>
+		<div class="cuestion">3. “Aparici&oacute;n de programas instalados en el equipo sin consentimiento”. El enunciado anterior corresponde a:</div>
+		<div class="respuestas">
+			<label>
+				<input type="radio" name="0" value="a">&nbsp;a : S&iacute;ntoma de ataque.&nbsp;</label>
+			<label>
+				<input type="radio" name="0" value="b">&nbsp;b : Paso a seguir en una infecci&oacute;n de malware.&nbsp;</label>
+			<label>
+				<input type="radio" name="0" value="c">&nbsp;c : Medida de seguridad.&nbsp;</label>
+		</div>
+	</div>
+	<button id="boton">Mostrar resultado</button>
+	<div id="resultado">
+		<br>
+	</div>
+	<script>
+		const contenedor = document.getElementById("test");
+		const botonRes = document.getElementById("boton");
+		const resultadoTest = document.getElementById("resultado");
+
+		const preguntas = [
+			{
+				pregunta: "1. “Aprendizaje y mejora continua a partir del incidente”. El enunciado anterior corresponde a:",
+				respuestas:
+				{
+					a: "Síntoma de ataque.",
+					b: "Paso a seguir en una infección de malware.",
+					c: "Medida de seguridad.",
+				},
+				respuestaCorrecta: "b",
+			},
+			{
+				pregunta: "2. “Respaldos de información”. El enunciado anterior corresponde a:",
+				respuestas:
+				{
+					a: "Síntoma de ataque.",
+					b: "Paso a seguir en una infección de malware.",
+					c: "Medida de seguridad.",
+				},
+				respuestaCorrecta: "c",
+			},
+			{
+				pregunta: "3. “Aparición de programas instalados en el equipo sin consentimiento”. El enunciado anterior corresponde a:",
+				respuestas:
+				{
+					a: "Síntoma de ataque.",
+					b: "Paso a seguir en una infección de malware.",
+					c: "Medida de seguridad.",
+				},
+				respuestaCorrecta: "a",
+			},
+
+		];
+
+		function mostrarTest()
+		{
+			const preguntasYrespuestas = [];
+
+			preguntas.forEach((preguntaActual, numeroDePregunta) =>
+			{
+
+				const respuestas = [];
+
+				for (letraRespuesta in preguntaActual.respuestas)
+				{
+
+					respuestas.push(
+
+						`
+        <label>
+                  <input type="radio" name="${numeroDePregunta}" value="${letraRespuesta}" />
+                  ${letraRespuesta} : ${preguntaActual.respuestas[letraRespuesta]} <br>
+              </label>` 
+					);
+                   
+				}
+
+				preguntasYrespuestas.push(
+					`
+      <div class="cuestion">${preguntaActual.pregunta}</div>
+      
+          <div class="respuestas"> ${respuestas.join("")} </div>
+          `
+				);
+			});
+
+			contenedor.innerHTML = preguntasYrespuestas.join("");
+		}
+
+		mostrarTest();
+
+		function mostrarResultado()
+		{
+			const respuestas = contenedor.querySelectorAll(".respuestas");
+			let respuestasCorrectas = 0;
+
+			preguntas.forEach((preguntaActual, numeroDePregunta) =>
+			{
+				const todasLasRespuestas = respuestas[numeroDePregunta];
+				const checkboxRespuestas = `input[name='${numeroDePregunta}']:checked`;
+				const respuestaElegida = (
+					todasLasRespuestas.querySelector(checkboxRespuestas) ||
+					{}
+				).value;
+
+				if (respuestaElegida === preguntaActual.respuestaCorrecta)
+				{
+					respuestasCorrectas++;
+
+					respuestas[numeroDePregunta].style.color = "blue";
+				}
+				else
+				{
+					respuestas[numeroDePregunta].style.color = "red";
+				}
+			});
+
+			resultadoTest.innerHTML =
+				"Usted ha acertado " +
+				respuestasCorrectas +
+				" preguntas de un total de " +
+				preguntas.length;
+		}
+
+		botonRes.addEventListener("click", mostrarResultado);
+
+	</script>
+       </div>
+
+</fieldset>
+</body>
+</html>
